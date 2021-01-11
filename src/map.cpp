@@ -1,14 +1,13 @@
-
 using namespace std;
 #include <iostream>
 #include "mapping/map.h"
 
-
+namespace controllers {
 //Each boolean covers a 1/2 inch by 1/2 inch area
 //8' * 12 * 2 by 4 * 12 * 2
 Map::Map()
 {
-    map = new bool[192][96];
+    // map =new bool[192][96];
     rows = 192;
     cols = 96;
 }
@@ -22,7 +21,7 @@ void Map::addWall(int x, int y, int width, int height)
                 // if (i >= sizeof(map) || j >= sizeof(map[]))
                 //     cout << "Array out of bounds"; << endl;
 
-                map[&i][&j] = true;
+                map[i][j] = true;
             }
 }
 
@@ -31,6 +30,7 @@ void Map::print()
     for (int i = 0; i < rows; i++)
         for (int j = 0; j < cols; j++)
             {
-                cout << map[&i][&j];
+                cout << map[i][j];
             }
 }
+} // namespace controllers

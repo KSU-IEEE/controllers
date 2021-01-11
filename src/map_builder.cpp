@@ -1,10 +1,9 @@
 using namespace std;
 
 #include "mapping/map.h"
-
 int main ()
 {
-    Map m = Map();
+    controllers::Map m = controllers::Map();
 
     m.addWall(0, 0, 40, 3);
 
