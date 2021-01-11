@@ -1,7 +1,6 @@
 using namespace std;
 
-#include "Map.h"
-#include "Map.cpp"
+#include "map/map.h"
 
 int main ()
 {

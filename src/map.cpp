@@ -1,7 +1,7 @@
 
 using namespace std;
 #include <iostream>
-#include "Map.h"
+#include "mapping/map.h"
 
 
 //Each boolean covers a 1/2 inch by 1/2 inch area
