@@ -9,7 +9,7 @@ private:
     //Each boolean covers a 1/2 inch by 1/2 inch area
     //8' * 12 * 2 by 4 * 12 * 2
     //False means no wall, True means wall
-    bool map[192][96];
+    bool map[96][192];
 
     //Adding these because I can't be bothered to understand sizeof
     //ints for width and height of the map array
