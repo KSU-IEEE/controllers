@@ -1,5 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
+#include <vector>
 
 namespace controllers {
 class Map
@@ -20,10 +21,11 @@ public:
     Map();
 
     //Copy Constructor for making another from the same boolean array
-    Map(const Map &m);    
+    Map(Map &m);    
 
     void addWall(int x, int y, int width, int height);
     void print();
+    void reflectOnYAxis();
 
     //Returns pointer to an array of length 4 of booleans.
     //Up, Right, Down, Left

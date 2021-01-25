@@ -2,6 +2,7 @@ using namespace std;
 #include <iostream>
 #include <cmath>
 #include "mapping/map.h"
+#include <vector>
 // #include "../include/mapping/map.h"
 
 namespace controllers {
@@ -18,15 +19,30 @@ Map::Map()
             map[i][j] = false;
 }
 
+Map::Map(Map &m)
+{
+    Map();
+
+    for (int i = 0; i < rows; i++)
+        for (int j = 0; j < cols; j++)
+            map[i][j] = m.map[i][j];
+}
+
+
 //Sets every bool in described area to true, for wall
 void Map::addWall(int x, int y, int width, int height)
 {
-    for (int i = x; i-x < height; i++)
+    for (int i = x; i-x < width; i++)
     {
-        for (int j = y; j-y < width; j++)
+        //Prevent going over size of map
+        if (i >= cols)
+            break;
+
+        for (int j = y; j-y < height; j++)
             {
-                // if (i >= sizeof(map) || j >= sizeof(map[]))
-                //     cout << "Array out of bounds"; << endl;
+                //Prevent going over size of map
+                if (j >= rows)
+                    break;
                 
 
                 map[j][i] = true;
@@ -48,6 +64,19 @@ void Map::print()
 
         }
         cout << " row" << i << endl;
+    }
+}
+
+void Map::reflectOnYAxis()
+{
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            bool reflectedSpot = map[i][cols-j];
+            if (reflectedSpot)
+                map[i][j] = true;
+        }
     }
 }
 } // namespace controllers
