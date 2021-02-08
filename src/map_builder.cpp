@@ -1,15 +1,18 @@
-using namespace std;
+//using namespace std;
 
 #include "mapping/map.h"
-int main ()
-{
-    controllers::Map m;
 
-    int wallThickness = 3;
-    int mapHeight = 96;
-    int mapWidth = 192;
-    int foot = 24;
-    int inch = 2;
+namespace map_builder{
+//function that builds the map for A*
+//hardcoded rn are the values for Southeastcon 2021 pacman
+void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, int foot, int inch){
+    // int wallThickness = 3;
+    // int mapHeight = 96;
+    // int mapWidth = 192;
+    // int foot = 24;
+    // int inch = 2;
+
+    controllers::map m(mapHeight,mapWidth);
 
     //4 Outer Walls
     m.addWall(0,0, wallThickness, mapHeight);
@@ -39,7 +42,7 @@ int main ()
 
     m.reflectOnYAxis();
 
-    m.print();
-
-    return 0;
+    //print for debugging map
+    //m.print();
+}
 }
