@@ -5,7 +5,7 @@
 namespace map_builder{
 //function that builds the map for A*
 //hardcoded rn are the values for Southeastcon 2021 pacman
-void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, int foot, int inch, map &m){
+void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, int foot, int inch, controllers::map &m){
     // int wallThickness = 3;
     // int mapHeight = 96;
     // int mapWidth = 192;
@@ -46,7 +46,7 @@ void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, int fo
     //m.print();
 }
 
-void build_config_space_map(int wallThickness, int mapHeight, int mapWidth, int foot, int inch, int robotSize, map &configMap){
+void build_config_space_map(int wallThickness, int mapHeight, int mapWidth, int foot, int inch, int robotSize, controllers::map &configMap){
    
     // int wallThickness = 3;
     // int mapHeight = 96;
