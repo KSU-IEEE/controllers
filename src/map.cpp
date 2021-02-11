@@ -24,19 +24,20 @@ map::map(int CONSTR_rows, int CONSTR_cols)
 
     //should generate the real space
     //ie the map in real life scale
-    map::rows = CONSTR_rows;
-    map::cols = CONSTR_cols;
+    rows = CONSTR_rows;
+    cols = CONSTR_cols;
     //set map vector for row to 1 so pushback will work
-    controllers::map::VRowMap.resize(1);
+    VRowMap.resize(1);
     
     //load a row vector with false
+    // Vmap.at(index).push_back(value);
         for (int i = 0; i < rows; i++){
-            map::VRowMap.push_back(false);
+            VRowMap.push_back(false);
             //load the row vector into columns
             // 1 2 3 4 5 -> load -> 1 2 3 4 5
             //                      0 0 0 0 0
             for (int j; j < cols; j++)
-                map::Vmap.push_back(VRowMap);
+                Vmap.push_back(VRowMap);
         }
 }    
 
@@ -51,7 +52,7 @@ map::map(int CONSTR_rows, int CONSTR_cols)
 //         cols = colSET;
 // }
 
-controllers::map::map(map &m)
+map::map(map &m)
 {
     map();
 

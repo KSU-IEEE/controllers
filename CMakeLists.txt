@@ -14,10 +14,10 @@ set(BUILDER
   src/map.cpp
   src/map_builder.cpp
 )
-set(A_STAR
-  src/node.cpp
-  src/A_Star_Logic.cpp
-)
+# set(A_STAR
+#   src/node.cpp
+#   src/A_Star_Logic.cpp
+# )
 
 # for builder tests 
 if ( NOT ("${BUILDER}" STREQUAL "") )
@@ -45,7 +45,7 @@ if ( NOT ("${BUILDER}" STREQUAL "") )
     FILES_MATCHING PATTERN "*.h"
     )
 
-    add_executable(map_builder ${BUILDER})
+    # add_executable(map_builder ${BUILDER})
 endif()
 if ( NOT ("${A_STAR}" STREQUAL "") )
     set(LIBS)
@@ -72,7 +72,7 @@ if ( NOT ("${A_STAR}" STREQUAL "") )
     FILES_MATCHING PATTERN "*.h"
     )
 
-    add_executable(a_star_logic ${A_STAR})
+    # add_executable(a_star_logic ${A_STAR})
 endif()
 
 # for final code

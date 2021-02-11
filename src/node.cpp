@@ -1,7 +1,7 @@
 #include "node/node.h"
 #include <iostream>
 
-using namespace a_star;
+namespace a_star{
 
 //Not copy constructor: asssume starting process: distance_to_here is  0
 a_star_node::a_star_node(coord initial_position, direction direction, coord destination)
@@ -138,4 +138,5 @@ int a_star_node_compare::operator()(const a_star_node &a, const a_star_node &b)
     else
         return a.getAStar() > b.getAStar();
 };
+}
 
