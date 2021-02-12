@@ -13,7 +13,6 @@ set(SRCS
 set(BUILDER 
   src/map.cpp
   src/map_builder.cpp
-  src/map_test.cpp
 )
 
 # set(A_STAR
@@ -23,13 +22,14 @@ set(BUILDER
 
 # for builder tests 
 if ( NOT ("${BUILDER}" STREQUAL "") )
-    set(LIBS)
+    set(MAP_LIBS  )
     message(STATUS "${PROJECT_NAME} library compiling: ${BUILDER}")
     message(STATUS "BINARY DIR: ${PROJECT_BINARY_DIR}")
-    add_library(builder ${BUILDER})
+    add_library(builder SHARED ${BUILDER} )
     target_link_libraries(builder 
         PUBLIC
-        ${LIBS})
+        ${MAP_LIBS})
+        # set_target_properties(builder PROPERTIES LINKER_LANGUAGE Fortran) 
 
     #############
     ## Install ##
@@ -47,7 +47,7 @@ if ( NOT ("${BUILDER}" STREQUAL "") )
     FILES_MATCHING PATTERN "*.h"
     )
 
-    add_executable(map_builder ${BUILDER})
+    add_executable(map_builder src/map_test.cpp ${BUILDER})
 endif()
 if ( NOT ("${A_STAR}" STREQUAL "") )
     set(LIBS)
@@ -74,7 +74,7 @@ if ( NOT ("${A_STAR}" STREQUAL "") )
     FILES_MATCHING PATTERN "*.h"
     )
 
-    # add_executable(a_star_logic ${A_STAR})
+    add_executable(a_star_logic ${A_STAR})
 endif()
 
 # for final code

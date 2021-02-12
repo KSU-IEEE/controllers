@@ -1,7 +1,7 @@
 //using namespace std;
 
 #include "mapping/map.h"
-namsepace pac_map{
+namespace pac_map{
     controllers::Map m;
 
     int wallThickness = 3;
