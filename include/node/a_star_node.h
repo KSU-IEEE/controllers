@@ -5,8 +5,8 @@ namespace a_star{
   //Creates a coordinate type that can be asked for x and y
 	typedef struct{int x; int y;} coord;
 
-  //Enum for 8 directions: 4 cardinal, 4 diagonal. Gives better readability.
-  enum direction {north, northeast, east, southeast, south, southwest, west, northwest};
+  //Enum for 8 directions: 4 cardinal. Gives better readability.
+  enum direction {north, east, south, west};
 
 	//a_star_node stuff placeholder for queue and trees
 	class a_star_node{
@@ -16,13 +16,13 @@ namespace a_star{
         coord goal;
         direction dir;
 
-		    double distance_to_here;
-        double dist_to_goal;
+		    int distance_to_here;
+        int dist_to_goal;
         
 
 		    a_star_node *parent;
 
-        double getManhattanDist();
+        int getManhattanDist();
         double getEuclidDist();
 
         const double root2 = 1.41421;
@@ -42,9 +42,9 @@ namespace a_star{
         coord getGoal() const;
         direction getDirection() const;
 
-        double getX() const;
-        double getH() const;
-        double getAStar() const;
+        int getX() const;
+        int getH() const;
+        int getAStar() const;
 
         //Bool operator to make the class comparable, and usable in a priority queue
         // bool operator () (const a_star_node& a, const a_star_node& b) const;

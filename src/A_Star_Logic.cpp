@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include "node/node.h"
+#include "node/a_star_node.h"
 
 namespace a_star{
 
@@ -29,9 +29,15 @@ namespace a_star{
 		return true;
 	}
 
-	void add_nearby_nodes(a_star_node node, priority_queue<a_star_node> paths)
+	//Adds one new node for each of the directions that can be moved in
+	void add_nearby_nodes(a_star_node node, std::priority_queue<a_star_node> paths)
 	{
-		
+		for (int i = 0; i < 4; i++)
+		{
+			direction dir = static_cast<direction>(i);
+			a_star_node new_node(&node, dir);
+			paths.push(new_node);
+		}
 	}
 
 	//Main function to be called externally
@@ -73,7 +79,7 @@ namespace Controller{
 		std::cout << init_node.getX() << std::endl;
 		std::cout << init_node.getH() << std::endl;
 
-		a_star::a_star_node next_node(&init_node, a_star::northwest);
+		a_star::a_star_node next_node(&init_node, a_star::west);
 		std::cout << next_node.getX() << std::endl;
 		std::cout << next_node.getH() << std::endl;
 
