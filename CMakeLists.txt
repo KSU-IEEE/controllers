@@ -13,6 +13,7 @@ set(SRCS
 set(BUILDER 
   src/map.cpp
   src/map_builder.cpp
+  src/map_test.cpp
 )
 
 # set(A_STAR
@@ -46,7 +47,7 @@ if ( NOT ("${BUILDER}" STREQUAL "") )
     FILES_MATCHING PATTERN "*.h"
     )
 
-    # add_executable(map_builder ${BUILDER})
+    add_executable(map_builder ${BUILDER})
 endif()
 if ( NOT ("${A_STAR}" STREQUAL "") )
     set(LIBS)

@@ -12,8 +12,7 @@ void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, int fo
     // int foot = 24;
     // int inch = 2;
 
-    //controllers::map m(mapHeight,mapWidth);
-
+    // controllers::map meep(mapHeight,mapWidth);
     //4 Outer Walls
     m.addWall(0,0, wallThickness, mapHeight);
     m.addWall(0,0,mapWidth,  wallThickness);
