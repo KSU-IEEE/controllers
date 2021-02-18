@@ -27,10 +27,15 @@ a_star_node::a_star_node(a_star_node *parent, direction direction)
     dir = direction;
 
     position = getMove(position, direction);
-    if ((int)direction % 2 == 0)
-        distance_to_here++;
-    else
-        distance_to_here += root2;
+    std::cout << "New Position " << position.x << "," <<position.y << std::endl;
+
+
+    // if ((int)direction % 2 == 0)
+    //     distance_to_here++;
+    // else
+    //     distance_to_here += root2;
+
+    distance_to_here++;
     
 
     // //MAYBE WILL GET RID OF THIS
@@ -42,6 +47,14 @@ a_star_node::a_star_node(a_star_node *parent, direction direction)
     // distance_to_here += 0.25 * (direction_diff);
     dist_to_goal = getEuclidDist();
 
+}
+
+//Destructor?
+a_star_node::~a_star_node()
+{
+    // std::cout << "Adios master" << std::endl;
+    // if (parent != NULL)
+    //     delete parent;
 }
 
 int a_star_node::getManhattanDist()
@@ -113,6 +126,15 @@ coord a_star_node::getMove(coord startLocation, direction dir)
     }
 
     return position;
+}
+
+bool a_star_node::operator<(const a_star_node& other) const
+{
+    bool a_equals = getAStar() == other.getAStar();
+    if (a_equals)
+        return getH() < other.getH();
+    else
+        return getAStar() < other.getAStar();
 }
 
 a_star_node& a_star_node::operator=(const a_star_node& other)

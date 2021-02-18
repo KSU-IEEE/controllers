@@ -16,7 +16,7 @@ set(BUILDER
 )
 
 # set(A_STAR
-#   src/node.cpp
+#   src/a_star_node.cpp
 #   src/A_Star_Logic.cpp
 # )
 

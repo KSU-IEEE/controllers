@@ -31,6 +31,7 @@ namespace a_star{
         //Constructor && Copy Constructor
 		    a_star_node(coord initial_position, direction direction, coord destination);
         a_star_node(a_star_node *parent, direction direction);
+        ~a_star_node();
 
         //Returns reference to a_star_node before this one (null if first)
         a_star_node* getParent() const;
@@ -52,6 +53,7 @@ namespace a_star{
         static coord getMove(coord startLocation, direction dir);
 
         a_star_node& operator=(const a_star_node& other);
+        bool operator<(const a_star_node& other) const;
 	};
 
   class a_star_node_compare{
