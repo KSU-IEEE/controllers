@@ -66,10 +66,10 @@ namespace a_star{
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
-				std::cout << "Added " << newLocation.x << "," << newLocation.y << std::endl;
-				std::cout << "getX() " << (new_node.getX()) << std::endl;
-				std::cout << "getH() " << (new_node.getH()) << std::endl;
-				std::cout << "getAStar() " << (new_node.getAStar()) << std::endl;
+				// std::cout << "Added " << newLocation.x << "," << newLocation.y << std::endl;
+				// std::cout << "getX() " << (new_node.getX()) << std::endl;
+				// std::cout << "getH() " << (new_node.getH()) << std::endl;
+				// std::cout << "getAStar() " << (new_node.getAStar()) << std::endl;
 				
 			}
 		}
@@ -115,16 +115,20 @@ namespace a_star{
 			add_nearby_nodes(*next_node, &paths, traversed_locations);
 
 
-			std::cout << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
-			std::cout << "Paths size : " << paths.size() << std::endl <<std::endl;
+			// std::cout << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
+			// std::cout << "Paths size : " << paths.size() << std::endl <<std::endl;
 			iterations++;
 		}
 		if (iterations >= maxIterations)
 			std::cout << "Pathfinding failed" << std::endl;
+		else
+		{
+			std::cout << "Goal found at " << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
+		}
 	}
 
-	//Main function to be called externally
-	//WILL ADD SOMETHING TO DECIDE WHAT MAP TO USE LATER
+	//Overload of main external method with different inputs
+	//Prepares a node to be used by the main method
 	void a_star(int initialROW, int initialCOL, direction initialDirection, int goalROW, int goalCOL)
 	{
 		//Creates first node, and add it to the queue
@@ -154,8 +158,8 @@ namespace Controller{
 
 		a_star::a_star_node init_node(startLocation, startDirection, destination);
 		
-		std::cout << init_node.getX() << std::endl;
-		std::cout << init_node.getH() << std::endl;
+		std::cout << "Initial Position : " << init_node.getPosition().x << "," << init_node.getPosition().y << std::endl;
+		std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
 
 		a_star::a_star(init_node);
 	}

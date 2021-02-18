@@ -27,7 +27,7 @@ a_star_node::a_star_node(a_star_node *parent, direction direction)
     dir = direction;
 
     position = getMove(position, direction);
-    std::cout << "New Position " << position.x << "," <<position.y << std::endl;
+    // std::cout << "New Position " << position.x << "," <<position.y << std::endl;
 
 
     // if ((int)direction % 2 == 0)
@@ -45,7 +45,7 @@ a_star_node::a_star_node(a_star_node *parent, direction direction)
     // direction_diff = abs(4 - direction_diff);
 
     // distance_to_here += 0.25 * (direction_diff);
-    dist_to_goal = getEuclidDist();
+    dist_to_goal = getManhattanDist();
 
 }
 
@@ -145,7 +145,7 @@ a_star_node& a_star_node::operator=(const a_star_node& other)
         goal = other.getGoal();
         dir = other.getDirection();
         distance_to_here = other.getX();
-        dist_to_goal = getEuclidDist();
+        dist_to_goal = getManhattanDist();
 
     }
     return *this;
