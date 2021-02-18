@@ -74,7 +74,7 @@ if ( NOT ("${A_STAR}" STREQUAL "") )
     FILES_MATCHING PATTERN "*.h"
     )
 
-    add_executable(a_star_logic ${A_STAR})
+    # add_executable(a_star_logic ${A_STAR})
 endif()
 
 # for final code
