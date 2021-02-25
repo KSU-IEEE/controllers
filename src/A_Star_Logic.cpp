@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <string>
 #include "node/a_star_node.h"
 
 namespace a_star{
@@ -66,10 +67,6 @@ namespace a_star{
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
-				// std::cout << "Added " << newLocation.x << "," << newLocation.y << std::endl;
-				// std::cout << "getX() " << (new_node.getX()) << std::endl;
-				// std::cout << "getH() " << (new_node.getH()) << std::endl;
-				// std::cout << "getAStar() " << (new_node.getAStar()) << std::endl;
 				
 			}
 		}
@@ -89,34 +86,31 @@ namespace a_star{
 		while(!paths.empty())
 			paths.pop();
 
+		//Put first node into the priority queue
 		paths.push(init_node);
 
 		std::vector<coord> traversed_locations;
 
+		//Constant pointer to current best node in the priority queue.
+		//Best node will change as more are added
 		const a_star_node *next_node = &(paths.top());
 		traversed_locations.push_back(next_node -> getPosition());
-		
-
-		std::cout << "Goal check is " << goal_check(*next_node) << std::endl;
-		std::cout << "Paths size : " << paths.size() << std::endl;
+	
+		//Keep track of number of iterations to avoid being stuck in infinite loop
 		int iterations = 0;
 		int maxIterations = 500;
 		while (iterations < maxIterations)
 		{	
 			next_node = &(paths.top());
 		
+			//Check if we have found the goal
 			if (goal_check(*next_node))
 			{
 				std::cout <<"Weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 				break;
 			}
-				
 			
 			add_nearby_nodes(*next_node, &paths, traversed_locations);
-
-
-			// std::cout << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
-			// std::cout << "Paths size : " << paths.size() << std::endl <<std::endl;
 			iterations++;
 		}
 		if (iterations >= maxIterations)
@@ -124,6 +118,27 @@ namespace a_star{
 		else
 		{
 			std::cout << "Goal found at " << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
+			// int string_index = 0;
+			// for (const a_star_node *ptr = next_node; ptr != NULL; ptr = ptr -> getParent())
+			// {
+			// 	direction dir = ptr -> getDirection();
+			// 	char stepChar;
+			// 	switch (dir)
+			// 	{
+			// 		case north: stepChar = 'N'; break;
+			// 		case west: stepChar = 'W'; break;
+			// 		case south: stepChar = 'S'; break;
+			// 		case east: stepChar = 'E'; break;
+			// 		default: stepChar = 'X'; break;
+			// 	}
+
+			// 	steps[string_index] = stepChar;
+			// 	string_index++;
+			// }
+			// steps[string_index] = '\0';
+
+			std::cout << next_node -> getParent() -> getPosition().x <<"," << std::endl;
+			std::cout << next_node -> getMoves() << std::endl;
 		}
 	}
 

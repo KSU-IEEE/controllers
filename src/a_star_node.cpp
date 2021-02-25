@@ -12,7 +12,7 @@ a_star_node::a_star_node(coord initial_position, direction direction, coord dest
     dir = direction;
     goal = destination;
     dist_to_goal = getEuclidDist();
-
+    moves = "";
 }
 
 a_star_node::a_star_node(a_star_node *parent, direction direction)
@@ -27,16 +27,28 @@ a_star_node::a_star_node(a_star_node *parent, direction direction)
     dir = direction;
 
     position = getMove(position, direction);
-    // std::cout << "New Position " << position.x << "," <<position.y << std::endl;
-
-
-    // if ((int)direction % 2 == 0)
-    //     distance_to_here++;
-    // else
-    //     distance_to_here += root2;
-
     distance_to_here++;
     
+    moves = parent -> moves;
+    // for (int i=0; i<parent ->moves.size(); i++) 
+    //     moves.push_back(parent ->moves[i]);
+
+    char thisMove = 'F';
+    switch (direction)
+    {
+        case north: thisMove = 'N'; break;
+        case east: thisMove = 'E'; break;
+        case south: thisMove = 'S'; break;
+        case west: thisMove = 'W'; break;
+    }
+    moves += (thisMove);
+
+    std::cout << "moves size: " << moves.size() << std::endl;
+    for (int i = 0; i < moves.size(); i++)
+			{
+				std::cout << moves[i];
+			}
+            std::cout << std::endl;
 
     // //MAYBE WILL GET RID OF THIS
     // //Adds to distance traveled based on how much turning was done to face this direction
@@ -52,9 +64,7 @@ a_star_node::a_star_node(a_star_node *parent, direction direction)
 //Destructor?
 a_star_node::~a_star_node()
 {
-    // std::cout << "Adios master" << std::endl;
-    // if (parent != NULL)
-    //     delete parent;
+
 }
 
 int a_star_node::getManhattanDist()
@@ -107,6 +117,10 @@ direction a_star_node::getDirection() const
     return dir;
 }
 
+std::string a_star_node::getMoves() const{
+    return moves;
+}
+
 
 //Returns a set of coordinates that have moved 1-2 squares in the indicated direction from the first set of coordinates
 coord a_star_node::getMove(coord startLocation, direction dir)
@@ -116,13 +130,9 @@ coord a_star_node::getMove(coord startLocation, direction dir)
     switch(dir)
     {
         case north: position.y--; break;
-        //case northwest: position.y--; position.x++;  break;
         case west: position.x++;  break;
-        //case southwest: position.x++; position.y++;  break;
         case south: position.y++;  break;
-        //case southeast: position.y++; position.x--; break;
         case east: position.x--;  break;
-        //case northeast: position.x--; break;
     }
 
     return position;

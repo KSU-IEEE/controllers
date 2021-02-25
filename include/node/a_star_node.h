@@ -1,5 +1,7 @@
 #include <cstdlib>
 #include <math.h>
+#include <string>
+#include <deque>
 
 namespace a_star{
   //Creates a coordinate type that can be asked for x and y
@@ -21,6 +23,7 @@ namespace a_star{
         
 
 		    a_star_node *parent;
+        std::string moves;
 
         int getManhattanDist();
         double getEuclidDist();
@@ -46,6 +49,7 @@ namespace a_star{
         int getX() const;
         int getH() const;
         int getAStar() const;
+        std::string getMoves() const;
 
         //Bool operator to make the class comparable, and usable in a priority queue
         // bool operator () (const a_star_node& a, const a_star_node& b) const;
