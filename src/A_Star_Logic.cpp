@@ -67,13 +67,18 @@ namespace a_star{
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
-				
 			}
 		}
 
+		for (auto it : traversed_locations) {
+			std::cout<<" X: "<< it.x << " Y: " <<it.y << std::endl;
+    	}
+
 		paths -> pop();
-		for (std::vector<a_star_node>::iterator it = nodes_to_push.begin(); it < nodes_to_push.end(); it++)
+		for (std::vector<a_star_node>::iterator it = nodes_to_push.begin(); it < nodes_to_push.end(); it++) {
 			paths -> push(*it);
+			std::cout<< "checking " << it->getPosition().x << " "<< it->getPosition().y<<std::endl;
+		}
 	}
 
 	//Main function to be called externally
@@ -102,6 +107,7 @@ namespace a_star{
 		while (iterations < maxIterations)
 		{	
 			next_node = &(paths.top());
+			std::cout<<"id: "<<next_node->getPosition().x <<" "<<next_node->getPosition().y<<std::endl;
 		
 			//Check if we have found the goal
 			if (goal_check(*next_node))

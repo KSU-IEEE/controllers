@@ -2,13 +2,14 @@
 #include <math.h>
 #include <string>
 #include <deque>
+#include <vector>
 
 namespace a_star{
   //Creates a coordinate type that can be asked for x and y
 	typedef struct{int x; int y;} coord;
 
   //Enum for 8 directions: 4 cardinal. Gives better readability.
-  enum direction {north, east, south, west};
+  enum direction {north = 0, east = 1, south = 2, west = 3};
 
 	//a_star_node stuff placeholder for queue and trees
 	class a_star_node{
@@ -22,7 +23,8 @@ namespace a_star{
         int dist_to_goal;
         
 
-		    a_star_node *parent;
+		    a_star_node *parent_;
+        std::vector<char> myString;
         std::string moves;
 
         int getManhattanDist();
