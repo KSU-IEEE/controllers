@@ -8,7 +8,7 @@ namespace a_star{
 	typedef struct{int x; int y;} coord;
 
   //Enum for 8 directions: 4 cardinal. Gives better readability.
-  enum direction {north, east, south, west};
+  enum direction {north = 0, east = 1, south = 2, west= 3};
 
 	//a_star_node stuff placeholder for queue and trees
 	class a_star_node{
@@ -22,7 +22,7 @@ namespace a_star{
         int dist_to_goal;
         
 
-		    a_star_node *parent;
+		    const a_star_node *parent;
         std::string moves;
 
         int getManhattanDist();
@@ -31,13 +31,15 @@ namespace a_star{
         const double root2 = 1.41421;
 
     public:
+        static int counter;
+
         //Constructor && Copy Constructor
 		    a_star_node(coord initial_position, direction direction, coord destination);
-        a_star_node(a_star_node *parent, direction direction);
+        a_star_node(a_star_node parent, direction direction);
         ~a_star_node();
 
         //Returns reference to a_star_node before this one (null if first)
-        a_star_node* getParent() const;
+        const a_star_node* const getParent() const;
 
         //Construct all a_star_nodes near this point
         void exploreChildren();
