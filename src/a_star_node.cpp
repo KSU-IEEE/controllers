@@ -5,8 +5,6 @@
 
 using namespace a_star;
 
-int a_star_node::counter = 0;
-
 //Not copy constructor: asssume starting process: distance_to_here is  0
 a_star_node::a_star_node(coord initial_position, direction direction, coord destination)
 {
@@ -17,17 +15,11 @@ a_star_node::a_star_node(coord initial_position, direction direction, coord dest
     goal = destination;
     dist_to_goal = getEuclidDist();
     moves = "";
-    counter++;
 }
 
 a_star_node::a_star_node(a_star_node parent, direction direction)
 {
-<<<<<<< HEAD
-    counter++;
-    this -> parent = &parent;
-=======
-    parent_ = parent;
->>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
+    parent_ = &parent;
 
     //Fetches parent's position & distance traveled, modifies them based on direction moved
     //Distance increases by 1  if going cardinally or root2 if going diagonally.
@@ -38,13 +30,6 @@ a_star_node::a_star_node(a_star_node parent, direction direction)
 
     position = getMove(position, direction);
     distance_to_here++;
-    
-<<<<<<< HEAD
-=======
-    // moves = parent -> moves;
->>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
-    // for (int i=0; i<parent ->moves.size(); i++) 
-    //     moves.push_back(parent ->moves[i]);
 
     char thisMove = 'F';
     
@@ -56,36 +41,7 @@ a_star_node::a_star_node(a_star_node parent, direction direction)
         case south: thisMove = 'S'; break;
         case west: thisMove = 'W'; break;
     }
-<<<<<<< HEAD
     moves = (parent.getMoves()) + thisMove;
-
-    // for (int i = 0; i < moves.size(); i++)
-	// 		{
-	// 			std::cout << moves[i];
-	// 		}
-    //         std::cout << std::endl;
-=======
-    // moves (thisMove);
-    moves = parent->moves +  thisMove;
-    for (auto it : parent->moves) {
-        moves.push_back(it);
-    }
-    // moves = std::string (moves, thisMove); 
-    // std::string temp = moves + thisMove;
-    // moves = temp;
-    myString.push_back(thisMove);
-    // moves.push_back(std::string(thisMove));
-
-    std::cout << "moves size: " << myString.capacity() 
-              << "  Direction: "<< direction 
-              << " String: " << moves << std::endl;
-
-    for (int i = 0; i < moves.size(); i++)
-			{
-				std::cout << moves[i];
-			}
-            std::cout << std::endl;
->>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
 
     // //MAYBE WILL GET RID OF THIS
     // //Adds to distance traveled based on how much turning was done to face this direction

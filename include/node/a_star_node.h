@@ -24,7 +24,7 @@ namespace a_star{
         int dist_to_goal;
         
 
-		    const a_star_node *parent;
+		    const a_star_node *parent_;
         std::string moves;
 
         int getManhattanDist();
@@ -33,7 +33,6 @@ namespace a_star{
         const double root2 = 1.41421;
 
     public:
-        static int counter;
 
         //Constructor && Copy Constructor
 		    a_star_node(coord initial_position, direction direction, coord destination);

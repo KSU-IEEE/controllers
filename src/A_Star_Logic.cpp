@@ -69,20 +69,9 @@ namespace a_star{
 			}
 		}
 
-		for (auto it : traversed_locations) {
-			std::cout<<" X: "<< it.x << " Y: " <<it.y << std::endl;
-    	}
-
 		paths -> pop();
-<<<<<<< HEAD
 		for (a_star_node i : nodes_to_push)
 			paths -> push(i);
-=======
-		for (std::vector<a_star_node>::iterator it = nodes_to_push.begin(); it < nodes_to_push.end(); it++) {
-			paths -> push(*it);
-			std::cout<< "checking " << it->getPosition().x << " "<< it->getPosition().y<<std::endl;
-		}
->>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
 	}
 
 	//Main function to be called externally
@@ -95,9 +84,21 @@ namespace a_star{
 		while(!paths.empty())
 			paths.pop();
 
+		//Ensure neither initial node nor destination are a wall
+		if (!empty_loc_check(init_node.getPosition()))
+		{
+			std::cout << "Invalid! Initial position is a wall" << std:: endl;
+			return;
+		}
+		else if (!empty_loc_check(init_node.getGoal()))
+		{
+			std::cout << "Invalid! Destination is a wall" << std:: endl;
+			return;
+		}
+
+
 		//Put first node into the priority queue
 		paths.push(init_node);
-
 		std::vector<coord> traversed_locations;
 
 		//Constant pointer to current best node in the priority queue.
@@ -112,11 +113,7 @@ namespace a_star{
 		{	
 			const a_star_node* prev_node = next_node;
 			next_node = &(paths.top());
-<<<<<<< HEAD
 			a_star_node current_node = paths.top();
-=======
-			std::cout<<"id: "<<next_node->getPosition().x <<" "<<next_node->getPosition().y<<std::endl;
->>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
 		
 			//Check if we have found the goal
 			if (goal_check(*next_node))
