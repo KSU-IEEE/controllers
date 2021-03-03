@@ -2,6 +2,7 @@
 #include <math.h>
 #include <string>
 #include <deque>
+#include <vector>
 
 namespace a_star{
   //Creates a coordinate type that can be asked for x and y
@@ -9,6 +10,7 @@ namespace a_star{
 
   //Enum for 8 directions: 4 cardinal. Gives better readability.
   enum direction {north = 0, east = 1, south = 2, west= 3};
+
 
 	//a_star_node stuff placeholder for queue and trees
 	class a_star_node{

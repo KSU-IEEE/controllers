@@ -66,13 +66,23 @@ namespace a_star{
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
-				
 			}
 		}
 
+		for (auto it : traversed_locations) {
+			std::cout<<" X: "<< it.x << " Y: " <<it.y << std::endl;
+    	}
+
 		paths -> pop();
+<<<<<<< HEAD
 		for (a_star_node i : nodes_to_push)
 			paths -> push(i);
+=======
+		for (std::vector<a_star_node>::iterator it = nodes_to_push.begin(); it < nodes_to_push.end(); it++) {
+			paths -> push(*it);
+			std::cout<< "checking " << it->getPosition().x << " "<< it->getPosition().y<<std::endl;
+		}
+>>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
 	}
 
 	//Main function to be called externally
@@ -102,7 +112,11 @@ namespace a_star{
 		{	
 			const a_star_node* prev_node = next_node;
 			next_node = &(paths.top());
+<<<<<<< HEAD
 			a_star_node current_node = paths.top();
+=======
+			std::cout<<"id: "<<next_node->getPosition().x <<" "<<next_node->getPosition().y<<std::endl;
+>>>>>>> 1b63e5d8645a3219cc5f241ddae8bed67b51fa4c
 		
 			//Check if we have found the goal
 			if (goal_check(*next_node))
