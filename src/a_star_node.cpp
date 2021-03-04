@@ -1,5 +1,7 @@
 #include "node/a_star_node.h"
 #include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace a_star;
 
@@ -7,7 +9,7 @@ using namespace a_star;
 a_star_node::a_star_node(coord initial_position, direction direction, coord destination)
 {
     distance_to_here = 0;
-    parent = NULL;
+    parent_ = NULL;
     position = initial_position;
     dir = direction;
     goal = destination;
@@ -15,40 +17,31 @@ a_star_node::a_star_node(coord initial_position, direction direction, coord dest
     moves = "";
 }
 
-a_star_node::a_star_node(a_star_node *parent, direction direction)
+a_star_node::a_star_node(a_star_node parent, direction direction)
 {
-    this -> parent = parent;
+    parent_ = &parent;
 
     //Fetches parent's position & distance traveled, modifies them based on direction moved
     //Distance increases by 1  if going cardinally or root2 if going diagonally.
-    position = parent -> getPosition();
-    distance_to_here = parent -> getX();
-    goal = parent -> getGoal();
+    position = parent.getPosition();
+    distance_to_here = parent.getX();
+    goal = parent.getGoal();
     dir = direction;
 
     position = getMove(position, direction);
     distance_to_here++;
-    
-    moves = parent -> moves;
-    // for (int i=0; i<parent ->moves.size(); i++) 
-    //     moves.push_back(parent ->moves[i]);
 
     char thisMove = 'F';
+    
     switch (direction)
     {
-        case north: thisMove = 'N'; break;
+        case north: 
+            thisMove = 'N'; break;
         case east: thisMove = 'E'; break;
         case south: thisMove = 'S'; break;
         case west: thisMove = 'W'; break;
     }
-    moves += (thisMove);
-
-    std::cout << "moves size: " << moves.size() << std::endl;
-    for (int i = 0; i < moves.size(); i++)
-			{
-				std::cout << moves[i];
-			}
-            std::cout << std::endl;
+    moves = (parent.getMoves()) + thisMove;
 
     // //MAYBE WILL GET RID OF THIS
     // //Adds to distance traveled based on how much turning was done to face this direction
@@ -74,9 +67,6 @@ int a_star_node::getManhattanDist()
 
 double a_star_node::getEuclidDist()
 {
-    // std::cout << "Current position: (" << position.x << "," << position.y << ")" << std::endl;
-    // std::cout << "Destination: (" << goal.x << "," << goal.y << ")" << std::endl;
-
     return sqrt(pow(position.x-goal.x,2) + pow(position.y-goal.y,2));
 }
 
@@ -107,9 +97,9 @@ int a_star_node::getAStar() const
     return getX() + getH();
 }
 
-a_star_node* a_star_node::getParent() const
+ const a_star_node* const a_star_node::getParent() const
 {
-    return parent;
+    return parent_;
 }
 
 direction a_star_node::getDirection() const
@@ -118,7 +108,8 @@ direction a_star_node::getDirection() const
 }
 
 std::string a_star_node::getMoves() const{
-    return moves;
+
+    return moves.substr(0, moves.size());
 }
 
 
@@ -156,6 +147,7 @@ a_star_node& a_star_node::operator=(const a_star_node& other)
         dir = other.getDirection();
         distance_to_here = other.getX();
         dist_to_goal = getManhattanDist();
+        moves = other.moves;
 
     }
     return *this;

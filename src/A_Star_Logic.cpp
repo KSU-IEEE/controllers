@@ -47,7 +47,8 @@ namespace a_star{
 	//Adds one new node for each of the directions that can be moved in
 	void add_nearby_nodes(a_star_node node, std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> *paths, std::vector<coord> traversed_locations)
 	{
-		std::cout << "Adding moves from " << node.getPosition().x << "," << node.getPosition().y << std::endl;
+
+		// std::cout << "Adding moves from " << node.getPosition().x << "," << node.getPosition().y << std::endl;
 
 		std::vector<a_star_node> nodes_to_push;
 
@@ -60,20 +61,17 @@ namespace a_star{
 			//Make sure place we're attempting to add new node is empty
 			if (empty_loc_check(newLocation))
 			{
-				//Make sure location of new node isn't already in tree. If it is, eliminate one with longer path to current square
-			
-				a_star_node new_node(&node, dir);
+				a_star_node new_node(node, dir);
 				if (!unique_loc_check(newLocation, &traversed_locations))
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
-				
 			}
 		}
 
 		paths -> pop();
-		for (std::vector<a_star_node>::iterator it = nodes_to_push.begin(); it < nodes_to_push.end(); it++)
-			paths -> push(*it);
+		for (a_star_node i : nodes_to_push)
+			paths -> push(i);
 	}
 
 	//Main function to be called externally
@@ -86,9 +84,21 @@ namespace a_star{
 		while(!paths.empty())
 			paths.pop();
 
+		//Ensure neither initial node nor destination are a wall
+		if (!empty_loc_check(init_node.getPosition()))
+		{
+			std::cout << "Invalid! Initial position is a wall" << std:: endl;
+			return;
+		}
+		else if (!empty_loc_check(init_node.getGoal()))
+		{
+			std::cout << "Invalid! Destination is a wall" << std:: endl;
+			return;
+		}
+
+
 		//Put first node into the priority queue
 		paths.push(init_node);
-
 		std::vector<coord> traversed_locations;
 
 		//Constant pointer to current best node in the priority queue.
@@ -101,16 +111,18 @@ namespace a_star{
 		int maxIterations = 500;
 		while (iterations < maxIterations)
 		{	
+			const a_star_node* prev_node = next_node;
 			next_node = &(paths.top());
+			a_star_node current_node = paths.top();
 		
 			//Check if we have found the goal
 			if (goal_check(*next_node))
 			{
-				std::cout <<"Weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" << std::endl;
 				break;
 			}
 			
-			add_nearby_nodes(*next_node, &paths, traversed_locations);
+			add_nearby_nodes(current_node, &paths, traversed_locations);
+
 			iterations++;
 		}
 		if (iterations >= maxIterations)
@@ -118,26 +130,6 @@ namespace a_star{
 		else
 		{
 			std::cout << "Goal found at " << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
-			// int string_index = 0;
-			// for (const a_star_node *ptr = next_node; ptr != NULL; ptr = ptr -> getParent())
-			// {
-			// 	direction dir = ptr -> getDirection();
-			// 	char stepChar;
-			// 	switch (dir)
-			// 	{
-			// 		case north: stepChar = 'N'; break;
-			// 		case west: stepChar = 'W'; break;
-			// 		case south: stepChar = 'S'; break;
-			// 		case east: stepChar = 'E'; break;
-			// 		default: stepChar = 'X'; break;
-			// 	}
-
-			// 	steps[string_index] = stepChar;
-			// 	string_index++;
-			// }
-			// steps[string_index] = '\0';
-
-			std::cout << next_node -> getParent() -> getPosition().x <<"," << std::endl;
 			std::cout << next_node -> getMoves() << std::endl;
 		}
 	}
