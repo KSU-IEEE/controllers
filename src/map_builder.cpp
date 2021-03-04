@@ -63,22 +63,23 @@ void build_config_space_map(int wallThickness, int mapHeight, int mapWidth, int 
 
 
     //4 Outer Walls
-    configMap.addWall(0,0, wallThickness, mapHeight);
-    configMap.addWall(0,0,mapWidth,  wallThickness);
+    configMap.addWall(0,0, wallThickness, mapHeight + robotSize);
+    configMap.addWall(0,0,mapWidth,  wallThickness + robotSize);
     configMap.addWall(mapWidth-wallThickness, 0, wallThickness, mapHeight);
     configMap.addWall(0, mapHeight-wallThickness, mapWidth, wallThickness);
 
     //Rect A
-    configMap.addWall(0,0, foot + 6*inch + wallThickness, 8*inch + wallThickness);
+    configMap.addWall(0,0, robotSize + foot + 6*inch + wallThickness, 8*inch + wallThickness);
     //Rect B
-    configMap.addWall(3*foot + 5*inch, 0, foot + 2*inch, 8*inch+wallThickness);
+    configMap.addWall(3*foot + 5*inch, 0, foot + 2*inch, robotSize + 8*inch+wallThickness);
     //Rect D
-    configMap.addWall(0, wallThickness + 8*inch + 10*inch, foot+10*inch+1 + 2*wallThickness, 5*inch+1);
+    configMap.addWall(0, wallThickness + 8*inch + 10*inch, foot+10*inch+1 + 2*wallThickness, 5*inch+1+robotSize);
+    
 
     //Awkward wall between A and B
-    configMap.addWall(foot + 6*inch + wallThickness + 10*inch + robotSize, 0, wallThickness, 8*inch + wallThickness);
+    configMap.addWall(foot + 6*inch + wallThickness + 10*inch + robotSize, 0, wallThickness, 8*inch + wallThickness + robotSize);
     //Vertcal wall to the right of F
-    configMap.addWall(2 * foot, mapHeight - (11*inch + 1), wallThickness, 11*inch+1);
+    configMap.addWall(2 * foot, mapHeight - (11*inch + 1), wallThickness + robotSize, 11*inch+1);
     //Horizontal wall above that wall
     configMap.addWall(2*foot - (foot - wallThickness), mapHeight-(11*inch + 1 + wallThickness), foot, wallThickness);
     //Short wall up and left from start
