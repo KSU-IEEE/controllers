@@ -46,7 +46,8 @@ public:
     //function to add walls to the boolean map
     void addWall(int x, int y, int width, int height);
     //print out map to terminal
-    void print();
+    void print(std::vector<std::pair<int, int>> *path_points = NULL);
+
     //reflects the map across y axis
     //map is symentrical so this is faster for generating it
     void reflectOnYAxis();

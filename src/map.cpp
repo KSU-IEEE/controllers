@@ -82,16 +82,30 @@ void map::addWall(int x, int y, int width, int height)
     }
 }
 
-void map::print()
+void map::print(std::vector<std::pair<int, int>> *path_points)
 {
 
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         {
-            // cout << "i" << i << "j" << j << "-";
-            std::cout << Vmap[i][j];
-            // cout << " ";
+            //Branching to print an X if in a path sent over.
+            if (path_points == NULL)
+                std::cout << Vmap[i][j];
+            else
+            {
+                bool wasInPath = false;
+                for (auto ptr : *path_points)
+                {
+                    if (ptr.first == i && ptr.second == j)
+                    {
+                        std::cout << "X";
+                        wasInPath = true;
+                    }
+                }
+                if (!wasInPath)
+                    std::cout << Vmap[i][j];
+            }
 
         }
         std::cout << " row" << i << std::endl;

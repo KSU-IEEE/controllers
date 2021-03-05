@@ -12,6 +12,9 @@
 
 namespace a_star{
 
+	bool is_test = true;
+
+
 	//std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> paths;
 
 	bool goal_check(a_star_node node){
@@ -43,7 +46,44 @@ namespace a_star{
 		//Still commented out while map still in flux
 		//coord newLocation = node.getPosition();
 		//return !map[newLocation.x][newLocation.y];
-		return config_map.isWall(location.x, location.y);
+		return !config_map.isWall(location.x, location.y);
+	}
+
+	direction getOppositeDirection(char char_dir)
+	{
+		direction opposite_dir = north;
+		switch (char_dir)
+		{
+			case 'N': opposite_dir = south; break;
+			case 'E': opposite_dir = west; break;
+			case 'S': opposite_dir = north; break;
+			case 'W': opposite_dir = east; break;
+		}
+
+		return opposite_dir;
+	}
+
+	//Helper method returns a vector of all the coordinates used in a path, given the end and the steps
+	std::vector<std::pair<int, int>> getSpacesInPath(a_star_node end_node, std::string steps)
+	{
+		//Add last space
+		std::vector<std::pair<int, int>> spaces;
+		coord current_space = end_node.getPosition();
+		std::pair<int, int> startingSpace(current_space.x, current_space.y);
+		spaces.push_back(startingSpace);
+
+		//Do opposite step for every step in steps string, in reverse order
+		for (int i = steps.size() - 1; i >= 0; i--)
+		{
+			char step = steps[i];
+			direction opposite_dir = getOppositeDirection(step);
+			current_space = a_star_node::getMove(current_space, opposite_dir);
+			std::pair<int, int> new_pair(current_space.x, current_space.y);
+			spaces.push_back(new_pair);
+
+		}
+
+		return spaces;
 	}
 
 	//Adds one new node for each of the directions that can be moved in
@@ -60,6 +100,12 @@ namespace a_star{
 			direction dir = static_cast<direction>(i);
 			coord newLocation = a_star_node::getMove(node.getPosition(), dir);
 
+			//Make sure new direction doesn't go back to where old node came from;
+			//Does this by not going in the opposite direction as the old node
+			int oldDirInt = (int)(node.getDirection());
+			if (abs(i - oldDirInt) % 4 == 2)
+				continue;
+
 			//Make sure place we're attempting to add new node is empty
 			if (empty_loc_check(newLocation, config_map))
 			{
@@ -68,6 +114,10 @@ namespace a_star{
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
+			}
+			else{
+				//std::cout << "You bad lad!";
+				;
 			}
 		}
 
@@ -125,14 +175,22 @@ namespace a_star{
 			
 			add_nearby_nodes(current_node, &paths, traversed_locations, config_map);
 
+			std::cout << "Checking at: (" << current_node.getPosition().x << "," << current_node.getPosition().y << ")" << std::endl;
+
 			iterations++;
 		}
 		if (iterations >= maxIterations)
 			std::cout << "Pathfinding failed" << std::endl;
 		else
 		{
-			std::cout << "Goal found at " << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
-			std::cout << next_node -> getMoves() << std::endl;
+			if (is_test)
+			{
+				std::cout << "Goal found at " << next_node -> getPosition().x << "," << next_node -> getPosition().y << std::endl;
+				std::vector<std::pair<int,int>> path_points = getSpacesInPath(*next_node, next_node -> getMoves());	
+				config_map.print(&path_points);
+				std::cout << next_node -> getMoves() << std::endl;
+				
+			}
 		}
 	}
 
@@ -162,9 +220,9 @@ namespace Controller{
 
 	int main()
 	{
-		a_star::coord startLocation = {96,84};
+		a_star::coord startLocation = {50,81};
 		a_star::direction startDirection = a_star::north;
-		a_star::coord destination = {190, 22};
+		a_star::coord destination = {50, 54};
 
 		a_star::a_star_node init_node(startLocation, startDirection, destination);
 		
@@ -172,12 +230,9 @@ namespace Controller{
 		std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
 
 		controllers::map test_map(96, 192);
-		map_builder::build_real_space_map(3, 96, 192, 24, 2, test_map);
+		map_builder::build_config_space_map(3, 96, 192, 24, 2, 14, test_map);
 
 		std::cout << "Passed to real space builder" << std::endl;
-
-		test_map.print();
-
 		std::cout << "Printed successfully" <<std::endl;
 
 		a_star::a_star(init_node, test_map);

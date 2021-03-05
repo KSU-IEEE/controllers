@@ -163,3 +163,4 @@ int a_star_node_compare::operator()(const a_star_node &a, const a_star_node &b)
         return a.getAStar() > b.getAStar();
 };
 
+
