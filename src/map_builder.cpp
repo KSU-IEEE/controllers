@@ -1,5 +1,6 @@
 //using namespace std;
 
+#include <iostream>
 #include "mapping/map.h"
 
 namespace map_builder{
@@ -59,7 +60,6 @@ void build_config_space_map(int wallThickness, int mapHeight, int mapWidth, int 
     //computations for config space
     //use bottom left of robot for origin reference
     wallThickness += robotSize;
-    
 
 
     //4 Outer Walls
@@ -74,7 +74,6 @@ void build_config_space_map(int wallThickness, int mapHeight, int mapWidth, int 
     configMap.addWall(3*foot + 5*inch, 0, foot + 2*inch, robotSize + 8*inch+wallThickness);
     //Rect D
     configMap.addWall(0, wallThickness + 8*inch + 10*inch, foot+10*inch+1 + 2*wallThickness, 5*inch+1+robotSize);
-    
 
     //Awkward wall between A and B
     configMap.addWall(foot + 6*inch + wallThickness + 10*inch + robotSize, 0, wallThickness, 8*inch + wallThickness + robotSize);

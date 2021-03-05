@@ -55,6 +55,9 @@ public:
     //Up, Right, Down, Left
     bool * PgetAdjacentSquares(int x, int y);
 
+    //Returns presence of wall at coordinates x, y
+    bool isWall(int x, int y);
+
 };
 } // namespace controllers
 #endif

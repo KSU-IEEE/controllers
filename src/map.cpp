@@ -36,7 +36,7 @@ map::map(int CONSTR_rows, int CONSTR_cols)
             //load the row vector into columns
             // 1 2 3 4 5 -> load -> 1 2 3 4 5
             //                      0 0 0 0 0
-            for (int j; j < cols; j++)
+            for (int j = 0; j < cols; j++)
                 Vmap.push_back(VRowMap);
         }
 }    
@@ -63,7 +63,7 @@ map::map(map &m)
 
 
 //Sets every bool in described area to true, for wall
-void controllers::map::addWall(int x, int y, int width, int height)
+void map::addWall(int x, int y, int width, int height)
 {
     for (int i = x; i-x < width; i++)
     {
@@ -77,14 +77,12 @@ void controllers::map::addWall(int x, int y, int width, int height)
                 if (j >= rows)
                     break;
                 
-
                 Vmap[j][i] = true;
-                std::cout << "i: " << i << " j: " << j << std::endl;
             }
     }
 }
 
-void controllers::map::print()
+void map::print()
 {
 
     for (int i = 0; i < rows; i++)
@@ -100,7 +98,7 @@ void controllers::map::print()
     }
 }
 
-void controllers::map::reflectOnYAxis()
+void map::reflectOnYAxis()
 {
     for (int i = 0; i < rows; i++)
     {
@@ -111,5 +109,10 @@ void controllers::map::reflectOnYAxis()
                 Vmap[i][j] = true;
         }
     }
+}
+
+bool map::isWall(int x, int y)
+{
+    return Vmap[x][y];
 }
 } // namespace controllers

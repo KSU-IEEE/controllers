@@ -18,6 +18,7 @@ set(BUILDER
 set(A_STAR
   src/a_star_node.cpp
   src/A_Star_Logic.cpp
+  src/map.cpp
 )
 
 # for builder tests 

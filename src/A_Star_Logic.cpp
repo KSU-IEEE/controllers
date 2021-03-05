@@ -7,6 +7,8 @@
 #include <queue>
 #include <string>
 #include "node/a_star_node.h"
+#include "mapping/map.h"
+#include "map_builder.cpp"
 
 namespace a_star{
 
@@ -36,16 +38,16 @@ namespace a_star{
 	}
 
 	//TODO ADD IN THE MAP TO CHECK IF SPOT IS FREE
-	bool empty_loc_check(coord location)
+	bool empty_loc_check(coord location, controllers::map& config_map)
 	{
 		//Still commented out while map still in flux
 		//coord newLocation = node.getPosition();
 		//return !map[newLocation.x][newLocation.y];
-		return true;
+		return config_map.isWall(location.x, location.y);
 	}
 
 	//Adds one new node for each of the directions that can be moved in
-	void add_nearby_nodes(a_star_node node, std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> *paths, std::vector<coord> traversed_locations)
+	void add_nearby_nodes(a_star_node node, std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> *paths, std::vector<coord> traversed_locations, controllers::map &config_map)
 	{
 
 		// std::cout << "Adding moves from " << node.getPosition().x << "," << node.getPosition().y << std::endl;
@@ -59,7 +61,7 @@ namespace a_star{
 			coord newLocation = a_star_node::getMove(node.getPosition(), dir);
 
 			//Make sure place we're attempting to add new node is empty
-			if (empty_loc_check(newLocation))
+			if (empty_loc_check(newLocation, config_map))
 			{
 				a_star_node new_node(node, dir);
 				if (!unique_loc_check(newLocation, &traversed_locations))
@@ -76,7 +78,7 @@ namespace a_star{
 
 	//Main function to be called externally
 	//Can either use an a_star_node or initial positions, direction, and goal for flashiness.
-	void a_star(a_star_node init_node)
+	void a_star(a_star_node init_node, controllers::map &config_map)
 	{
 		std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> paths;
 
@@ -85,12 +87,12 @@ namespace a_star{
 			paths.pop();
 
 		//Ensure neither initial node nor destination are a wall
-		if (!empty_loc_check(init_node.getPosition()))
+		if (!empty_loc_check(init_node.getPosition(), config_map))
 		{
 			std::cout << "Invalid! Initial position is a wall" << std:: endl;
 			return;
 		}
-		else if (!empty_loc_check(init_node.getGoal()))
+		else if (!empty_loc_check(init_node.getGoal(), config_map))
 		{
 			std::cout << "Invalid! Destination is a wall" << std:: endl;
 			return;
@@ -121,7 +123,7 @@ namespace a_star{
 				break;
 			}
 			
-			add_nearby_nodes(current_node, &paths, traversed_locations);
+			add_nearby_nodes(current_node, &paths, traversed_locations, config_map);
 
 			iterations++;
 		}
@@ -136,14 +138,15 @@ namespace a_star{
 
 	//Overload of main external method with different inputs
 	//Prepares a node to be used by the main method
-	void a_star(int initialROW, int initialCOL, direction initialDirection, int goalROW, int goalCOL)
+	void a_star(int initialROW, int initialCOL, direction initialDirection, int goalROW, int goalCOL, controllers::map& config_map)
 	{
 		//Creates first node, and add it to the queue
 		coord startLocation = {initialROW, initialCOL};
 		coord goal = {goalROW, goalCOL};
 		a_star_node init_node(startLocation, initialDirection, goal);
 
-		a_star(init_node);
+		//Calls real main method using arguments put together
+		a_star(init_node, config_map);
 	}
 
 	
@@ -168,5 +171,14 @@ namespace Controller{
 		std::cout << "Initial Position : " << init_node.getPosition().x << "," << init_node.getPosition().y << std::endl;
 		std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
 
-		a_star::a_star(init_node);
+		controllers::map test_map(96, 192);
+		map_builder::build_real_space_map(3, 96, 192, 24, 2, test_map);
+
+		std::cout << "Passed to real space builder" << std::endl;
+
+		test_map.print();
+
+		std::cout << "Printed successfully" <<std::endl;
+
+		a_star::a_star(init_node, test_map);
 	}
