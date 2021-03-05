@@ -172,7 +172,7 @@ namespace Controller{
 		std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
 
 		controllers::map test_map(96, 192);
-		map_builder::build_real_space_map(3, 96, 192, 24, 2, test_map);
+		map_builder::build_real_space_map(3, 96, 192, /*24, 2,*/ test_map);
 
 		std::cout << "Passed to real space builder" << std::endl;
 

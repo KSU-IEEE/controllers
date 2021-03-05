@@ -4,14 +4,33 @@
 #include "mapping/map.h"
 
 namespace map_builder{
+
+/*
+"elsehere":
+    controllers::map real_space = build_pm_real();
+
+"also elsewhere":
+    build_real_space_map(34, 32, 8, 12, 2, my_map());
+    
+---------------------------------------
+controllers::map build_pm_real() {
+    controllers::map output;
+
+    //... code 
+
+    return output;
+}
+*/
+
+
 //function that builds the map for A*
 //hardcoded rn are the values for Southeastcon 2021 pacman
-void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, int foot, int inch, controllers::map &m){
+void build_real_space_map(int wallThickness, int mapHeight, int mapWidth, /*int foot, int inch,*/ controllers::map &m){
     // int wallThickness = 3;
     // int mapHeight = 96;
     // int mapWidth = 192;
-    // int foot = 24;
-    // int inch = 2;
+    int foot = 24;
+    int inch = 2;
 
     // controllers::map meep(mapHeight,mapWidth);
     //4 Outer Walls
