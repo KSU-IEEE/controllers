@@ -222,7 +222,7 @@ namespace Controller{
 	{
 		a_star::coord startLocation = {50,81};
 		a_star::direction startDirection = a_star::north;
-		a_star::coord destination = {50, 54};
+		a_star::coord destination = {50, 65};
 
 		a_star::a_star_node init_node(startLocation, startDirection, destination);
 		
