@@ -162,8 +162,13 @@ namespace a_star{
 		int iterations = 0;
 		int maxIterations = 500;
 		while (iterations < maxIterations)
-		{	
-			const a_star_node* prev_node = next_node;
+		{
+			if (paths.size() == 0)
+			{
+				std::cout << "Pathfinding failed due to running out of frontier nodes" << std::endl;
+				return;
+			}
+
 			next_node = &(paths.top());
 			a_star_node current_node = paths.top();
 		
@@ -180,7 +185,7 @@ namespace a_star{
 			iterations++;
 		}
 		if (iterations >= maxIterations)
-			std::cout << "Pathfinding failed" << std::endl;
+			std::cout << "Pathfinding failed due to too many iteratios" << std::endl;
 		else
 		{
 			if (is_test)
@@ -230,7 +235,7 @@ namespace Controller{
 		std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
 
 		controllers::map test_map(96, 192);
-		map_builder::build_config_space_map(3, 96, 192, 24, 2, 14, test_map);
+		map_builder::build_real_space_map(3, 96, 192, test_map);
 
 		std::cout << "Passed to real space builder" << std::endl;
 		std::cout << "Printed successfully" <<std::endl;
