@@ -1,3 +1,6 @@
+#ifndef A_STAR_NODE_H 
+#define A_STAR_NODE_H
+
 #include <cstdlib>
 #include <math.h>
 #include <string>
@@ -68,3 +71,5 @@ namespace a_star{
           int operator()(const a_star_node &a, const a_star_node &b);
   };
 }
+
+#endif

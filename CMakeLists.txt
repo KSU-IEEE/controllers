@@ -12,12 +12,13 @@ set(SRCS
 )
 set(BUILDER 
   src/map.cpp
-  src/map_builder.cpp
+#   src/map_builder.cpp
+  src/map_test.cpp
 )
 
 set(A_STAR
   src/a_star_node.cpp
-  src/A_Star_Logic.cpp
+  src/a_star_test.cpp
   src/map.cpp
 )
 

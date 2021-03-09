@@ -1,3 +1,6 @@
+#ifndef A_STAR_LOGIC_H
+#define A_STAR_LOGIC_H
+
 /////////////////////////////////////////////////////////////////////////
 ///---------- Controller for KSU IEEE 2021 Pacman Robot---------------///
 /////////////////////////////////////////////////////////////////////////
@@ -8,7 +11,9 @@
 #include <string>
 #include "node/a_star_node.h"
 #include "mapping/map.h"
-#include "map_builder.cpp"
+#include "mapping/map_builder.h"
+#include <iostream>
+
 
 namespace a_star{
 
@@ -271,7 +276,7 @@ namespace a_star{
 				std::cout << it << ",";
 			std::cout << std::endl;
 		}
-	}
+	} 
 
 	//Overload of main external method with different inputs
 	//Prepares a node to be used by the main method
@@ -287,32 +292,7 @@ namespace a_star{
 	}
 
 	
-}
+} // namesapce a_star
 
-namespace Controller{
-	class A_Star{
-		//controller thing
-		void path_plan(float Parameter, bool LocROW, bool LocCOL){
-		}
-	};
-}
 
-	int main()
-	{
-		a_star::coord startLocation = {78, 60};
-		a_star::direction startDirection = a_star::north;
-		a_star::coord destination = {80, 133};
-
-		a_star::a_star_node init_node(startLocation, startDirection, destination);
-		
-		std::cout << "Initial Position : " << init_node.getPosition().x << "," << init_node.getPosition().y << std::endl;
-		std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
-
-		controllers::map test_map(96, 192);
-		map_builder::build_real_space_map(3, 96, 192, test_map);
-		test_map.print();
-
-		std::cout << "Passed to real space builder" << std::endl;
-
-		a_star::a_star(init_node, test_map);
-	}
+#endif
