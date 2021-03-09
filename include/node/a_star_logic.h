@@ -17,7 +17,7 @@
 
 namespace a_star{
 
-	bool is_test = true;
+	bool is_test = false;
 
 
 	//std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> paths;
@@ -202,9 +202,10 @@ namespace a_star{
 
 	//Main function to be called externally
 	//Can either use an a_star_node or initial positions, direction, and goal for flashiness.
-	void a_star(a_star_node init_node, controllers::map &config_map)
+	std::vector<float> a_star(a_star_node init_node, controllers::map &config_map)
 	{
 		std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> paths;
+		std::vector<float> instructions;
 
 		//Empty priority queue
 		while(!paths.empty())
@@ -214,12 +215,12 @@ namespace a_star{
 		if (!empty_loc_check(init_node.getPosition(), config_map))
 		{
 			std::cout << "Invalid! Initial position is a wall" << std:: endl;
-			return;
+			return instructions;
 		}
 		else if (!empty_loc_check(init_node.getGoal(), config_map))
 		{
 			std::cout << "Invalid! Destination is a wall" << std:: endl;
-			return;
+			return instructions;
 		}
 
 		direction initialDirection = init_node.getDirection();
@@ -240,7 +241,7 @@ namespace a_star{
 			if (paths.size() == 0)
 			{
 				std::cout << "Pathfinding failed due to running out of frontier nodes" << std::endl;
-				return;
+				return instructions;
 			}
 
 			next_node = &(paths.top());
@@ -272,23 +273,30 @@ namespace a_star{
 			}
 
 			std::vector<float> instructions = encodeRobotMovements(next_node -> getMoves(), initialDirection);
-			for (auto it: instructions)
-				std::cout << it << ",";
-			std::cout << std::endl;
+			if (is_test)
+			{
+				for (auto it: instructions)
+					std::cout << it << ",";
+				std::cout << std::endl;
+			}
+			return instructions;
+			
 		}
+
+		return instructions;
 	} 
 
 	//Overload of main external method with different inputs
 	//Prepares a node to be used by the main method
-	void a_star(int initialROW, int initialCOL, direction initialDirection, int goalROW, int goalCOL, controllers::map& config_map)
+	std::vector<float> a_star(int initialX, int initialY, direction initialDirection, int goalX, int goalY, controllers::map& config_map)
 	{
 		//Creates first node, and add it to the queue
-		coord startLocation = {initialROW, initialCOL};
-		coord goal = {goalROW, goalCOL};
+		coord startLocation = {initialX, initialY};
+		coord goal = {goalX, goalY};
 		a_star_node init_node(startLocation, initialDirection, goal);
 
 		//Calls real main method using arguments put together
-		a_star(init_node, config_map);
+		return a_star(init_node, config_map);
 	}
 
 	

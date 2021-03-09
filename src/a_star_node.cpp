@@ -10,9 +10,11 @@ a_star_node::a_star_node(coord initial_position, direction direction, coord dest
 {
     distance_to_here = 0;
     parent_ = NULL;
-    position = initial_position;
+    // position = initial_position;
+    position = {initial_position.y, initial_position.x};
     dir = direction;
-    goal = destination;
+    // goal = destination;
+    goal = {destination.y, destination.x};
     dist_to_goal = getEuclidDist();
     moves = "";
 }

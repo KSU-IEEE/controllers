@@ -297,9 +297,9 @@
 
 int main()
 {
-	a_star::coord startLocation = {78, 60};
+	a_star::coord startLocation = {50, 23};
 	a_star::direction startDirection = a_star::north;
-	a_star::coord destination = {80, 133};
+	a_star::coord destination = {100, 23};
 
 	a_star::a_star_node init_node(startLocation, startDirection, destination);
 	
@@ -312,6 +312,6 @@ int main()
 
 	std::cout << "Passed to real space builder" << std::endl;
 
-	a_star::a_star(init_node, test_map);
-	// a_star::a_star(78, 60, startDirection, 80, 133, test_map);
+	// a_star::a_star(init_node, test_map);
+	a_star::a_star(50, 23, startDirection, 100, 28, test_map);
 }
