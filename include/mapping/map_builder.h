@@ -72,7 +72,7 @@ controllers::map build_real_pman_map(){
 }
 
 controllers::map build_config_space_map(controllers::map realMap)//int wallThickness, int mapHeight, int mapWidth, int robotSize){
-   
+{
    controllers::map configMap;
    configMap.map();
    
@@ -119,8 +119,8 @@ controllers::map build_config_space_map(controllers::map realMap)//int wallThick
     configMap.reflectOnYAxis();
 
     return configMap;
-    //print for debugging map
-    //m.print();
+//     //print for debugging map
+//     //m.print();
 
 }
 }
