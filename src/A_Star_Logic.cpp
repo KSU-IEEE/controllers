@@ -49,7 +49,31 @@ namespace a_star{
 		return !config_map.isWall(location.x, location.y);
 	}
 
-	direction getOppositeDirection(char char_dir)
+	char directionToChar(direction dir)
+	{
+		switch (dir)
+		{
+			case north: return 'N';
+			case east: return 'E';
+			case south: return 'S';
+			case west: return 'W';
+			default: return 'F';
+		}
+	}
+
+	direction charToDirection(char char_dir)
+	{
+		switch (char_dir)
+		{
+			case 'N' : return north;
+			case 'E' : return east;
+			case 'S' : return south;
+			case 'W' : return west;
+			default: return north;
+		}
+	}
+
+	direction charToOppositeDirection(char char_dir)
 	{
 		direction opposite_dir = north;
 		switch (char_dir)
@@ -76,7 +100,7 @@ namespace a_star{
 		for (int i = steps.size() - 1; i >= 0; i--)
 		{
 			char step = steps[i];
-			direction opposite_dir = getOppositeDirection(step);
+			direction opposite_dir = charToOppositeDirection(step);
 			current_space = a_star_node::getMove(current_space, opposite_dir);
 			std::pair<int, int> new_pair(current_space.x, current_space.y);
 			spaces.push_back(new_pair);
@@ -84,6 +108,48 @@ namespace a_star{
 		}
 
 		return spaces;
+	}
+
+	std::vector<float> encodeRobotMovements(std::string cardinalSteps, direction initialDir)
+	{
+		//Positive floats indicate number of half-inches to go
+		//Negative floats should be whole numbers -- indicate number of 90 degree clockwise turns needed to face a new direction
+		std:: vector<float> instructions;
+		const float stepDistance = 0.5;
+
+		char currentDir = directionToChar(initialDir);
+		float distanceInDirection = 0.0;
+		for (int i = 0; i < cardinalSteps.length(); i++)
+		{
+
+			//If it is another step in the same direction
+			if (cardinalSteps[i] == currentDir)
+			{
+				distanceInDirection += stepDistance;
+			}
+			else
+			{
+				//Don't push empty forward move in beginning to confuse motor people
+				if (distanceInDirection != 0.0)
+					instructions.push_back(distanceInDirection);
+				distanceInDirection = 0.0;
+
+				//Add turn to face new direction
+				//CODE REQUIRES DIRECTION ENUM BE IN CLOCKWISE ORDER TO WORK
+				int current_dir_int = (int)charToDirection(currentDir);
+				int new_dir_int = (int)charToDirection(cardinalSteps[i]);
+				int turn = current_dir_int - new_dir_int;
+				if (turn > 0)
+					turn -= 4;
+				instructions.push_back((float)turn);
+				currentDir = cardinalSteps[i];
+				
+				distanceInDirection += stepDistance;
+			}
+		}
+		instructions.push_back(distanceInDirection);
+
+		return instructions;
 	}
 
 	//Adds one new node for each of the directions that can be moved in
@@ -151,7 +217,7 @@ namespace a_star{
 			return;
 		}
 
-
+		direction initialDirection = init_node.getDirection();
 		//Put first node into the priority queue
 		paths.push(init_node);
 		std::vector<coord> traversed_locations;
@@ -183,7 +249,7 @@ namespace a_star{
 			
 			add_nearby_nodes(current_node, &paths, traversed_locations, config_map);
 
-			std::cout << "Checking at: (" << current_node.getPosition().x << "," << current_node.getPosition().y << ")" << std::endl;
+			//std::cout << "Checking at: (" << current_node.getPosition().x << "," << current_node.getPosition().y << ")" << std::endl;
 
 			iterations++;
 		}
@@ -199,6 +265,11 @@ namespace a_star{
 				std::cout << next_node -> getMoves() << std::endl;
 				
 			}
+
+			std::vector<float> instructions = encodeRobotMovements(next_node -> getMoves(), initialDirection);
+			for (auto it: instructions)
+				std::cout << it << ",";
+			std::cout << std::endl;
 		}
 	}
 
