@@ -26,6 +26,8 @@ private:
     //ints for width and height of the map array
     int rows;
     int cols;
+    int wallThickness;
+    int robotSize;
 
 public:
     //default constructor
