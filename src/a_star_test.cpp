@@ -297,21 +297,21 @@
 
 int main()
 {
-	a_star::coord startLocation = {50, 23};
-	a_star::direction startDirection = a_star::north;
-	a_star::coord destination = {100, 23};
+	// a_star::coord startLocation = {50, 23};
+	// a_star::direction startDirection = a_star::north;
+	// a_star::coord destination = {100, 23};
 
-	a_star::a_star_node init_node(startLocation, startDirection, destination);
+	// a_star::a_star_node init_node(startLocation, startDirection, destination);
 	
-	std::cout << "Initial Position : " << init_node.getPosition().x << "," << init_node.getPosition().y << std::endl;
-	std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
+	// std::cout << "Initial Position : " << init_node.getPosition().x << "," << init_node.getPosition().y << std::endl;
+	// std::cout << "Destination : " << init_node.getGoal().x << "," << init_node.getGoal().y << std::endl;
 
-	controllers::map test_map(96, 192);
-	map_builder::build_real_space_map(3, 96, 192, test_map);
-	test_map.print();
+	// controllers::map test_map(96, 192);
+	// map_builder::build_real_space_map(3, 96, 192, test_map);
+	// test_map.print();
 
-	std::cout << "Passed to real space builder" << std::endl;
+	// std::cout << "Passed to real space builder" << std::endl;
 
-	// a_star::a_star(init_node, test_map);
-	a_star::a_star(50, 23, startDirection, 100, 28, test_map);
+	// // a_star::a_star(init_node, test_map);
+	// a_star::a_star(50, 23, startDirection, 100, 28, test_map);
 }
