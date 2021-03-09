@@ -120,10 +120,10 @@ coord a_star_node::getMove(coord startLocation, direction dir)
     coord position = startLocation;
     switch(dir)
     {
-        case north: position.y--; break;
-        case west: position.x++;  break;
-        case south: position.y++;  break;
-        case east: position.x--;  break;
+        case north: position.x--; break;
+        case west: position.y--;  break;
+        case south: position.x++;  break;
+        case east: position.y++;  break;
     }
 
     return position;
