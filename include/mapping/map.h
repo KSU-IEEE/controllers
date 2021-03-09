@@ -41,9 +41,11 @@ public:
     //Copy Constructor for making another from the same boolean array
     map(map &m); 
 
-    //setters for possible future use
-    //void setVmapRow(int rowSET);   
-    //void setVmapCols(int colSET);
+    //setters for vars
+    void setWallThickness(int thicc){ wallThickness = thicc; };
+    void setRobotSize(int SetRobotSize){ robotSize = SetRobotSize;};    
+    void setVmapRow(int rowSET){ rows = rowSET; };   
+    void setVmapCols(int colSET){ cols = colSET; };
 
     //function to add walls to the boolean map
     void addWall(int x, int y, int width, int height);
