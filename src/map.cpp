@@ -84,6 +84,17 @@ void map::addWall(int x, int y, int width, int height)
 
 void map::print(std::vector<std::pair<int, int>> *path_points)
 {
+    //Print 2 rows showing the column numbers for my sanity
+    //10's place
+    for (int i = 0; i < cols; i++)
+        std::cout << (i / 10) % 10;
+    std::cout << std::endl;
+    //1's place
+    for (int i = 0; i < cols; i++)
+        std::cout << i % 10;
+    std::cout << std::endl;
+    std::cout << std::endl;
+
 
     for (int i = 0; i < rows; i++)
     {

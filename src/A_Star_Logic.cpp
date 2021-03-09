@@ -30,11 +30,11 @@ namespace a_star{
 	//Instead, we're keeping track of things already visited in another way
 	//Thinking about it though, the priority queue nature itself should limit the creation of redundant nodes;
 	//Moving to a previously visited space elongates the path, and therefore increases h(x) for which a better node must exist
-	bool unique_loc_check(coord newLocation, std::vector<coord> *traversed_locations){
+	bool unique_loc_check(coord newLocation, std::vector<coord> &traversed_locations){
 
-		for (std::vector<coord>::iterator it = traversed_locations -> begin(); it < traversed_locations -> end(); it++)
+		for (auto it: traversed_locations)
 		{
-			if (it -> x == newLocation.x && it -> y == newLocation.y)
+			if (it.x == newLocation.x && it.y == newLocation.y)
 				return false;
 		}
 		return true;
@@ -87,7 +87,7 @@ namespace a_star{
 	}
 
 	//Adds one new node for each of the directions that can be moved in
-	void add_nearby_nodes(a_star_node node, std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> *paths, std::vector<coord> traversed_locations, controllers::map &config_map)
+	void add_nearby_nodes(a_star_node node, std::priority_queue<a_star::a_star_node, std::vector<a_star::a_star_node>, a_star::a_star_node_compare> *paths, std::vector<coord> &traversed_locations, controllers::map &config_map)
 	{
 
 		// std::cout << "Adding moves from " << node.getPosition().x << "," << node.getPosition().y << std::endl;
@@ -102,15 +102,18 @@ namespace a_star{
 
 			//Make sure new direction doesn't go back to where old node came from;
 			//Does this by not going in the opposite direction as the old node
+			//Is allowed to go backwards on the first node, i.e. when the number of steps so far is 0
 			int oldDirInt = (int)(node.getDirection());
-			if (abs(i - oldDirInt) % 4 == 2)
+			if (abs(i - oldDirInt) % 4 == 2 && node.getMoves().length() != 0)
 				continue;
 
 			//Make sure place we're attempting to add new node is empty
 			if (empty_loc_check(newLocation, config_map))
 			{
 				a_star_node new_node(node, dir);
-				if (!unique_loc_check(newLocation, &traversed_locations))
+
+				//Make sure place we're going to has not been gone to before
+				if (!unique_loc_check(newLocation, traversed_locations))
 					continue;
 				traversed_locations.push_back(newLocation);
 				nodes_to_push.push_back(new_node);
@@ -160,7 +163,7 @@ namespace a_star{
 	
 		//Keep track of number of iterations to avoid being stuck in infinite loop
 		int iterations = 0;
-		int maxIterations = 500;
+		int maxIterations = 5000;
 		while (iterations < maxIterations)
 		{
 			if (paths.size() == 0)
@@ -185,7 +188,7 @@ namespace a_star{
 			iterations++;
 		}
 		if (iterations >= maxIterations)
-			std::cout << "Pathfinding failed due to too many iteratios" << std::endl;
+			std::cout << "Pathfinding failed due to too many iterations" << std::endl;
 		else
 		{
 			if (is_test)
@@ -225,9 +228,9 @@ namespace Controller{
 
 	int main()
 	{
-		a_star::coord startLocation = {50,81};
+		a_star::coord startLocation = {78, 60};
 		a_star::direction startDirection = a_star::north;
-		a_star::coord destination = {50, 65};
+		a_star::coord destination = {80, 133};
 
 		a_star::a_star_node init_node(startLocation, startDirection, destination);
 		
@@ -236,9 +239,9 @@ namespace Controller{
 
 		controllers::map test_map(96, 192);
 		map_builder::build_real_space_map(3, 96, 192, test_map);
+		test_map.print();
 
 		std::cout << "Passed to real space builder" << std::endl;
-		std::cout << "Printed successfully" <<std::endl;
 
 		a_star::a_star(init_node, test_map);
 	}
