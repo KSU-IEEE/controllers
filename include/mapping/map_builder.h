@@ -1,4 +1,6 @@
 //using namespace std;
+#ifndef MAP_BUILDER_H
+#define MAP_BUILDER_H
 
 #include <iostream>
 #include "mapping/map.h"
@@ -133,3 +135,4 @@ controllers::map build_config_space_map(controllers::map realMap){
 
 }
 }
+#endif
