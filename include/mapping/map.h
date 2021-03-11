@@ -55,6 +55,9 @@ public:
 
     //function to add walls to the boolean map
     void addWall(int x, int y, int width, int height);
+
+    //remove wall function
+    void rmWall(int x,int y, int width, int height);
     //print out map to terminal
     void print(std::vector<std::pair<int, int>> *path_points = NULL);
 

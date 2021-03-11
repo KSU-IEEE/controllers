@@ -72,16 +72,9 @@ controllers::map build_real_pman_map(){
     //m.print();
 }
 
-<<<<<<< HEAD
-controllers::map build_config_space_map(controllers::map realMap){//int wallThickness, int mapHeight, int mapWidth, int robotSize){
+controllers::map build_config_space_map(controllers::map realMap){
    
    controllers::map configMap(192,96);
-=======
-controllers::map build_config_space_map(controllers::map realMap)//int wallThickness, int mapHeight, int mapWidth, int robotSize){
-{
-   controllers::map configMap;
-   configMap.map();
->>>>>>> c6b1f231f740e4fe752c1b22b17d10617b9d32e1
    
     // int wallThickness = 3;
     // int mapHeight = 96;

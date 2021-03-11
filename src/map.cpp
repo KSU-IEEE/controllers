@@ -81,7 +81,25 @@ void map::addWall(int x, int y, int width, int height)
             }
     }
 }
+//Sets every bool in described area to false, for free space
+void map::rmWall(int x, int y, int width, int height)
+{
+    for (int i = x; i-x < width; i++)
+    {
+        //Prevent going over size of map
+        if (i >= cols)
+            break;
 
+        for (int j = y; j-y < height; j++)
+            {
+                //Prevent going over size of map
+                if (j >= rows)
+                    break;
+                
+                Vmap[j][i] = false;
+            }
+    }
+}
 void map::print(std::vector<std::pair<int, int>> *path_points)
 {
     //Print 2 rows showing the column numbers for my sanity
