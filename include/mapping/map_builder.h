@@ -74,6 +74,8 @@ controllers::map build_real_pman_map(){
 
 controllers::map build_config_space_map(controllers::map realMap){
    
+    std::cout<<"creating base map"<<std::endl;
+
    controllers::map configMap(192,96);
    
     // int wallThickness = 3;
@@ -89,13 +91,18 @@ controllers::map build_config_space_map(controllers::map realMap){
     //use bottom left of robot for origin reference
     configMap.setWallThickness(3 + 14);
 
-
+    std::cout<<"adding outer walls" <<std::endl;
     //4 Outer Walls
     configMap.addWall(0,0, realMap.getWallThickness(), realMap.getVmapRow() + realMap.getRobotSize());
+    std::cout<<"added 1"<<std::endl;
     configMap.addWall(0,0,realMap.getVmapCols(),  realMap.getWallThickness() + realMap.getRobotSize());
+    std::cout<<"added 2"<<std::endl;
     configMap.addWall(realMap.getVmapCols()-realMap.getWallThickness(), 0, realMap.getWallThickness(), realMap.getVmapRow());
+    std::cout<<"added 3"<<std::endl;
     configMap.addWall(0, realMap.getVmapRow()-realMap.getWallThickness(), realMap.getVmapCols(), realMap.getWallThickness());
+    std::cout<<"added 4"<<std::endl;
 
+    std::cout<<"Adding ABD"<<std::endl;
     //Rect A
     configMap.addWall(0,0, realMap.getRobotSize() + foot + 6*inch + realMap.getWallThickness(), 8*inch + realMap.getWallThickness());
     //Rect B
@@ -103,6 +110,7 @@ controllers::map build_config_space_map(controllers::map realMap){
     //Rect D
     configMap.addWall(0, realMap.getWallThickness() + 8*inch + 10*inch, foot+10*inch+1 + 2*realMap.getWallThickness(), 5*inch+1+realMap.getRobotSize());
 
+    std::cout<<"Adding awkard stuff"<<std::endl;
     //Awkward wall between A and B
     configMap.addWall(foot + 6*inch + realMap.getWallThickness() + 10*inch + realMap.getRobotSize(), 0, realMap.getWallThickness(), 8*inch + realMap.getWallThickness() + realMap.getRobotSize());
     //Vertcal wall to the right of F

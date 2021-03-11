@@ -13,7 +13,6 @@ set(SRCS
 set(BUILDER 
   src/map.cpp
 #   src/map_builder.cpp
-  src/map_test.cpp
 )
 
 set(A_STAR
