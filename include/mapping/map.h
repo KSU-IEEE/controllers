@@ -47,6 +47,12 @@ public:
     void setVmapRow(int rowSET){ rows = rowSET; };   
     void setVmapCols(int colSET){ cols = colSET; };
 
+    //getters for vars
+    int getWallThickness(){ return wallThickness; };
+    int getRobotSize(){ return robotSize; };    
+    int getVmapRow(){ return rows; };   
+    int getVmapCols(){ return cols; };
+
     //function to add walls to the boolean map
     void addWall(int x, int y, int width, int height);
     //print out map to terminal
