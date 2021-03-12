@@ -1,0 +1,52 @@
+/////////////////////////////////////////////////////////////////////////
+///---------- Controller for KSU IEEE 2021 Pacman Robot---------------///
+/////////////////////////////////////////////////////////////////////////
+#include "math.h"
+
+
+namespace a_star_logic{
+	typedef pair<int, int> coord;
+	typedef pair<double, pair<int, int>> val;
+	
+	class node{
+		coord position;
+		double xm;
+
+		*node children[8];
+		node(){
+
+		}
+	}
+	//logic check functions for A*
+	
+
+	//dykstra value
+	int actual_value(int currLocROW, int currLocCOL){
+
+	}
+
+	int huer_value(int currLocROW, int currLocCOL, int goalROW, int goalCOL){
+		int distToGoal = 0;
+		//manhatten distance
+		//distToGoal = abs(currLocROW - goalROW) + abs(currLocCOL - goalCOL);
+		
+		//euclidean distance
+		distToGoal = (double) sqrt(abs(pow((goalCOL - currLocCOL),2) + pow((goalROW - currLocROW), 2)));
+	}
+
+	//basic check to see if at goal
+	bool goal_check(int currLocROW, int currLocCOL, int goalROW, int goalCOL){
+		if((currLocROW == goalROW) && (currLocCOL == goalCOL))
+			return true;
+		else
+			return false;
+	}
+
+	//
+	bool repeat_loc_check(){}
+
+	//A*
+	void a_star(bool Loc, int goalROW, int goalCOL){
+
+	}
+}
