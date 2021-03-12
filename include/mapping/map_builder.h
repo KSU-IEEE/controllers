@@ -34,7 +34,7 @@ controllers::map build_real_pman_map(){
      int foot = 24;
      int inch = 2;
 
-    controllers::map realMap(192, 96);
+    controllers::map realMap(96, 192);
 
     //setters called
     realMap.setWallThickness(3);
@@ -55,6 +55,7 @@ controllers::map build_real_pman_map(){
     //Rect D
     realMap.addWall(0, realMap.getWallThickness() + 8*inch + 10*inch, foot+10*inch+1 + 2*realMap.getWallThickness(), 5*inch+1);
     std::cout << "Added rectangles" << std::endl;
+
     //Awkward wall between A and B
     realMap.addWall(foot + 6*inch + realMap.getWallThickness() + 10*inch, 0, realMap.getWallThickness(), 8*inch + realMap.getWallThickness());
     //Vertcal wall to the right of F
@@ -75,17 +76,17 @@ controllers::map build_real_pman_map(){
     //m.print();
 }
 
-controllers::map build_config_space_map(controllers::map realMap){
+controllers::map build_config_space_map(controllers::map &realMap){
    
     std::cout<<"creating base map"<<std::endl;
 
-   controllers::map configMap(192,96);
+   controllers::map configMap(96, 192);
    
     // int wallThickness = 3;
     // int mapHeight = 96;
     // int mapWidth = 192;
-     int foot = 24;
-     int inch = 2;
+    int foot = 24;
+    int inch = 2;
     //robotSize = 14 //10 inches nomrally, but we are using 1/2 inch to 7*2 =14
 
     //controllers::map configMap(mapHeight,mapWidth);
@@ -93,6 +94,8 @@ controllers::map build_config_space_map(controllers::map realMap){
     //computations for config space
     //use bottom left of robot for origin reference
     configMap.setWallThickness(3 + 14);
+
+    std::cout << "Config Map time! "<<std::endl;
 
     std::cout<<"adding outer walls" <<std::endl;
     //4 Outer Walls

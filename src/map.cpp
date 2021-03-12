@@ -27,18 +27,16 @@ map::map(int CONSTR_rows, int CONSTR_cols)
     rows = CONSTR_rows;
     cols = CONSTR_cols;
     //set map vector for row to 1 so pushback will work
-    VRowMap.resize(1);
-    
-    //load a row vector with false
-    // Vmap.at(index).push_back(value);
-        for (int i = 0; i < rows; i++){
-            VRowMap.push_back(false);
-            //load the row vector into columns
-            // 1 2 3 4 5 -> load -> 1 2 3 4 5
-            //                      0 0 0 0 0
-            for (int j = 0; j < cols; j++)
-                Vmap.push_back(VRowMap);
-        }
+    VRowMap.resize(0);
+
+    for (int col = 0; col < cols; col++)
+        VRowMap.push_back(false);
+
+    for (int row = 0; row < rows; row++)
+        Vmap.push_back(VRowMap);
+
+    std::cout << Vmap.size() << std::endl;
+    std::cout << VRowMap.size() << std::endl;
 }    
 
 //setters -> implement later
@@ -65,18 +63,24 @@ map::map(map &m)
 //Sets every bool in described area to true, for wall
 void map::addWall(int x, int y, int width, int height)
 {
+    std::cout << "x, y, width, height: " << x << "," << y<< "," << width << "," <<height << std::endl;
+    std::cout << "rows, cols: " << rows << "," << cols << std::endl;
+    std::cout << "VMap size, vMapRows size: " << Vmap.size() << "," << VRowMap.size() << std::endl;
     for (int i = x; i-x < width; i++)
     {
+
         //Prevent going over size of map
         if (i >= cols)
             break;
 
         for (int j = y; j-y < height; j++)
             {
+                
                 //Prevent going over size of map
                 if (j >= rows)
+                {
                     break;
-                
+                }
                 Vmap[j][i] = true;
             }
     }

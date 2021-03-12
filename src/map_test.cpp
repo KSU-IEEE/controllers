@@ -13,10 +13,10 @@ int main(void) {
 
     std::cout<<"pman made, making config"<<std::endl;
 
-   // config = map_builder::build_config_space_map(real);
+    config = map_builder::build_config_space_map(real);
     
     real.print();
-    //config.print();
+    config.print();
     
     return 1;
 }
