@@ -108,19 +108,19 @@ controllers::map build_config_space_map(controllers::map &realMap){
 
     std::cout<<"Adding ABD"<<std::endl;
     //Rect A
-    configMap.addWall(0,0, foot + 6*inch + realMap.getWallThickness(), 8*inch + realMap.getWallThickness() - (realMap.getRobotSize() - 1)/2);
+    configMap.addWall(0,0, foot + 6*inch + realMap.getWallThickness() + realMap.getRobotSize()/2, 8*inch + realMap.getWallThickness() + (realMap.getRobotSize() - 1));
     //Rect B
-    configMap.addWall(3*foot + 5*inch, 0, foot + 2*inch, 8*inch+realMap.getWallThickness()- (realMap.getRobotSize() - 1));
+    configMap.addWall(3*foot + 5*inch - (realMap.getRobotSize()-1)/2, 0, foot + 2*inch + realMap.getRobotSize()-1, 8*inch+realMap.getWallThickness() + (realMap.getRobotSize() - 1));
     //Rect D
     configMap.addWall(0, realMap.getWallThickness() + 8*inch + 10*inch, foot+10*inch+1 + 2*realMap.getWallThickness() + (realMap.getRobotSize()-1)/2, 5*inch+1 + realMap.getRobotSize() - 1);
 
     std::cout<<"Adding awkard stuff"<<std::endl;
     //Awkward wall between A and B
-    configMap.addWall(foot + 6*inch + realMap.getWallThickness() + 10*inch + (realMap.getRobotSize()-1)/2, 0, realMap.getWallThickness() + (realMap.getRobotSize() - 1)/2, 8*inch + realMap.getWallThickness()  - realMap.getRobotSize() - 1);
+    configMap.addWall(foot + 6*inch + realMap.getWallThickness() + 10*inch - (realMap.getRobotSize()-1)/2, 0, realMap.getWallThickness() + (realMap.getRobotSize() - 1), 8*inch + realMap.getWallThickness()  + realMap.getRobotSize() - 1);
     //Vertcal wall to the right of F
     configMap.addWall(2 * foot - realMap.getRobotSize()/2, realMap.getVmapRow() - (11*inch + 1), realMap.getWallThickness() + realMap.getRobotSize() - 1, 11*inch+1);
     //Horizontal wall above that wall
-    configMap.addWall(2*foot - ((realMap.getRobotSize() - 1)/2) - (foot - realMap.getWallThickness()), realMap.getVmapRow()-(11*inch + 1 + realMap.getWallThickness()), foot + realMap.getRobotSize() - 1, realMap.getWallThickness());
+    configMap.addWall(2*foot - ((realMap.getRobotSize() - 1)/2) - (foot - realMap.getWallThickness()), realMap.getVmapRow()-(11*inch + 1 + realMap.getWallThickness()), foot + realMap.getRobotSize() - 1, realMap.getWallThickness() + realMap.getRobotSize());
     //Short wall up and left from start
     configMap.addWall(2*foot + realMap.getWallThickness() + 10*inch - realMap.getRobotSize()/2 - 1, realMap.getVmapRow()-(11*inch + 1 + realMap.getWallThickness()), 7*inch + 1 + realMap.getRobotSize() - 1, realMap.getWallThickness() + realMap.getRobotSize() - 1);
     //Long horizontal wall of T above start
