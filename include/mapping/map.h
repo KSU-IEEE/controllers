@@ -40,6 +40,7 @@ public:
 
     //Copy Constructor for making another from the same boolean array
     map(map &m); 
+    ~map(){};
 
     //setters for vars
     void setWallThickness(int thicc){ wallThickness = thicc; };

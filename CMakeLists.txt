@@ -9,6 +9,9 @@ include_directories(include)
 
 # add cpp files here
 set(SRCS
+    src/map.cpp
+    src/a_star_node.cpp
+    src/a_star_test.cpp
 )
 set(BUILDER 
   src/map.cpp
@@ -78,7 +81,7 @@ if ( NOT ("${A_STAR}" STREQUAL "") )
     add_executable(a_star_logic ${A_STAR})
 endif()
 
-# for final code
+# for final code`
 if ( NOT ("${SRCS}" STREQUAL "") )
     set(LIBS)
     message(STATUS "${PROJECT_NAME} library compiling: ${SRCS}")
